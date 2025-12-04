@@ -30,12 +30,12 @@
 ## Phase 3: Application Context (US3)
 
 ### Core Context Management
-- [ ] T016 [US3] Create `modules/app/context.go` with AppContext struct
-- [ ] T017 [US3] Implement constructor in `modules/app/context.go`
-- [ ] T018 [US3] Add graceful shutdown in `modules/app/shutdown.go`
-- [ ] T019 [US3] Implement health check tracking in `modules/app/health.go`
-- [ ] T020 [US3] Write tests in `modules/app/context_test.go`
-- [ ] T021 [US3] Add context documentation in `modules/app/README.md`
+- [X] T016 [US3] Create `modules/core/context.go` with AppContext struct
+- [X] T017 [US3] Implement constructor in `modules/core/context.go`
+- [X] T018 [US3] Add graceful shutdown in `modules/core/shutdown.go`
+- [X] T019 [US3] Implement health check tracking in `modules/core/health.go`
+- [X] T020 [US3] Write tests in `modules/core/context_test.go`
+- [X] T021 [US3] Add context documentation in `modules/core/README.md`
 
 ## Phase 4: Gin Web Server (US4)
 
