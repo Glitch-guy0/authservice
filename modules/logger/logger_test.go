@@ -2,9 +2,10 @@ package logger
 
 import (
 	"bytes"
-	"log"
 	"strings"
 	"testing"
+
+	"github.com/sirupsen/logrus"
 )
 
 func TestLoggerMethods(t *testing.T) {
@@ -13,8 +14,13 @@ func TestLoggerMethods(t *testing.T) {
 
 	// Create logger with custom output
 	logger := &StandardLogger{
-		logger: log.New(&buf, "", log.LstdFlags),
+		logger: logrus.New(),
 	}
+	logger.logger.SetOutput(&buf)
+	logger.logger.SetFormatter(&logrus.TextFormatter{
+		DisableTimestamp: true,
+		DisableQuote:     true,
+	})
 
 	tests := []struct {
 		name     string
@@ -26,25 +32,19 @@ func TestLoggerMethods(t *testing.T) {
 			name:     "Info",
 			method:   logger.Info,
 			message:  "test info message",
-			expected: "[INFO] test info message",
+			expected: "level=info msg=test info message",
 		},
 		{
 			name:     "Warn",
 			method:   logger.Warn,
 			message:  "test warning message",
-			expected: "[WARN] test warning message",
+			expected: "level=warning msg=test warning message",
 		},
 		{
 			name:     "Error",
 			method:   logger.Error,
 			message:  "test error message",
-			expected: "[ERROR] test error message",
-		},
-		{
-			name:     "Critical",
-			method:   logger.Critical,
-			message:  "test critical message",
-			expected: "[CRITICAL] test critical message",
+			expected: "level=error msg=test error message",
 		},
 	}
 
@@ -72,6 +72,7 @@ func TestNew(t *testing.T) {
 	logger := New()
 	if logger == nil {
 		t.Error("New() should return a non-nil logger")
+		return
 	}
 	if logger.logger == nil {
 		t.Error("New() should initialize the internal logger")

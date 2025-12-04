@@ -21,9 +21,9 @@
 ### Core Logger Package
 - [X] T009 [US2] Create `modules/logger/logger.go` with Logger interface
 - [X] T010 [US2] Implement logger in `modules/logger/logger.go`
-- [ ] T011 [US2] Add context support with request IDs in `modules/logger/context.go`
-- [ ] T012 [US2] Configure log formatting in `modules/logger/formatter.go`
-- [ ] T013 [US2] Add log level configuration in `modules/logger/config.go`
+- [X] T011 [US2] Add context support with request IDs in `modules/logger/context.go`
+- [X] T012 [US2] Configure log formatting in `modules/logger/formatter.go`
+- [X] T013 [US2] Add log level configuration in `modules/logger/config.go`
 - [X] T014 [US2] Write tests in `modules/logger/logger_test.go`
 - [X] T015 [US2] Add logger documentation in `modules/logger/README.md`
 
