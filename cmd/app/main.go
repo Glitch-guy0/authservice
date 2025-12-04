@@ -2,11 +2,15 @@ package main
 
 import (
 	"context"
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
+	"github.com/Glitch-guy0/authService/modules/core"
 	"github.com/Glitch-guy0/authService/modules/logger"
+	"github.com/Glitch-guy0/authService/modules/server"
 )
 
 // Version will be set during build
@@ -49,17 +53,47 @@ func run(ctx context.Context, version VersionInfo) error {
 	log.Info("Starting auth-service version %s (commit: %s, built: %s)",
 		version.Version, version.Commit, version.Date)
 
-	// TODO: Initialize configuration
+	// Initialize application context
+	appCtx := core.NewAppContextWithDefaults(log)
 
-	// TODO: Initialize application context
+	// Initialize HTTP server
+	server := server.NewServerWithDefaults(appCtx)
+	server.Initialize()
 
-	// TODO: Initialize HTTP server
+	// Start server in a goroutine
+	serverErr := make(chan error, 1)
+	go func() {
+		log.Info("Server starting on %s", server.GetAddress())
+		if err := server.Start(); err != nil && err != http.ErrServerClosed {
+			serverErr <- err
+		}
+	}()
+
+	// Log server started successfully
+	log.Info("HTTP server started successfully",
+		"address", server.GetAddress(),
+		"port", server.GetConfig().Port,
+		"mode", server.GetConfig().Mode,
+	)
 
 	// Wait for interrupt signal to gracefully shut down the server
-	<-ctx.Done()
-	log.Info("Shutting down...")
+	select {
+	case err := <-serverErr:
+		return err
+	case <-ctx.Done():
+		log.Info("Shutting down...")
 
-	// TODO: Add graceful shutdown logic
+		// Graceful shutdown
+		shutdownCtx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		defer cancel()
+
+		if err := server.Shutdown(shutdownCtx); err != nil {
+			log.Error("Server shutdown failed", "error", err)
+			return err
+		}
+
+		log.Info("Server shutdown successfully")
+	}
 
 	return nil
 }

@@ -40,12 +40,12 @@
 ## Phase 4: Gin Web Server (US4)
 
 ### Server Setup
-- [ ] T022 [US4] Create `modules/server/server.go` with Gin server setup
-- [ ] T023 [US4] Add request logging middleware in `modules/server/middleware/logger.go`
-- [ ] T024 [US4] Add recovery middleware in `modules/server/middleware/recovery.go`
-- [ ] T025 [US4] Implement graceful shutdown in `modules/server/shutdown.go`
-- [ ] T026 [US4] Add CORS support in `modules/server/middleware/cors.go`
-- [ ] T027 [US4] Write server tests in `modules/server/server_test.go`
+- [X] T022 [US4] Create `modules/server/server.go` with Gin server setup
+- [X] T023 [US4] Add request logging middleware in `modules/server/middleware/logger.go`
+- [X] T024 [US4] Add recovery middleware in `modules/server/middleware/recovery.go`
+- [X] T025 [US4] Implement graceful shutdown in `modules/server/shutdown.go`
+- [X] T026 [US4] Add CORS support in `modules/server/middleware/cors.go`
+- [X] T027 [US4] Write server tests in `modules/server/server_test.go`
 
 ### Health Check Endpoint
 - [ ] T028 [US4] Create `modules/api/health/handler.go`
