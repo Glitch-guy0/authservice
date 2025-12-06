@@ -78,11 +78,11 @@
 ## Phase 5: Error Handling (Cross-cutting)
 
 ### Error Management
-- [ ] T033 [P] Create `pkg/errors/errors.go` with custom error types
-- [ ] T034 [P] Implement error formatter in `pkg/errors/formatter.go`
-- [ ] T035 [P] Add error handling middleware in `modules/server/middleware/error_handler.go`
-- [ ] T036 [P] Write tests in `pkg/errors/errors_test.go`
-- [ ] T037 [P] Document error handling approach in `pkg/errors/README.md`
+- [X] T033 [P] Create `pkg/errors/errors.go` with custom error types
+- [X] T034 [P] Implement error formatter in `pkg/errors/formatter.go`
+- [X] T035 [P] Add error handling middleware in `modules/server/middleware/error_handler.go`
+- [X] T036 [P] Write tests in `pkg/errors/errors_test.go`
+- [X] T037 [P] Document error handling approach in `pkg/errors/README.md`
 
 ## Phase 6: Configuration Management (Cross-cutting)
 
