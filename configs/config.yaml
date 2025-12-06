@@ -1,0 +1,34 @@
+# Application configuration
+
+# Environment: development, staging, production
+env: development
+
+# Server configuration
+server:
+  port: 8080
+  timeout:
+    read: 15    # seconds
+    write: 15   # seconds
+    idle: 60    # seconds
+  debug: false  # enable debug mode
+
+# Logging configuration
+log:
+  level: info  # debug, info, warn, error, fatal, panic
+  format: json # json, text
+  file_logging:
+    enabled: false
+    filename: auth-service.log
+    max_size: 100  # MB
+    max_age: 30    # days
+
+# Database configuration
+database:
+  driver: postgres  # postgres, mysql, sqlite
+  dsn: "host=localhost port=5432 user=postgres password=postgres dbname=auth_service sslmode=disable"
+  max_open_conns: 25
+  max_idle_conns: 5
+  conn_max_lifetime: 5  # minutes
+  log_queries: false
+
+# Add other service configurations as needed

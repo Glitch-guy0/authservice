@@ -87,12 +87,12 @@
 ## Phase 6: Configuration Management (Cross-cutting)
 
 ### Configuration Setup
-- [ ] T038 [P] Create `modules/config/config.go` with Viper setup
-- [ ] T039 [P] Define configuration structure in `modules/config/types.go`
-- [ ] T040 [P] Add environment variable support in `modules/config/env.go`
-- [ ] T041 [P] Create default config in `configs/config.yaml`
-- [ ] T042 [P] Add config validation in `modules/config/validator.go`
-- [ ] T043 [P] Write tests in `modules/config/config_test.go`
+- [X] T038 [P] Create `modules/config/config.go` with Viper setup
+- [X] T039 [P] Define configuration structure in `modules/config/types.go`
+- [X] T040 [P] Add environment variable support in `modules/config/env.go`
+- [X] T041 [P] Create default config in `configs/config.yaml`
+- [X] T042 [P] Add config validation in `modules/config/validator.go`
+- [X] T043 [P] Write tests in `modules/config/config_test.go`
 
 ## Phase 7: Testing & Documentation (US6)
 
