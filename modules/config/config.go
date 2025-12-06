@@ -83,3 +83,8 @@ func GetStringMapString(key string) map[string]string {
 func UnmarshalKey(key string, rawVal interface{}) error {
 	return Config.UnmarshalKey(key, rawVal)
 }
+
+// AllSettings returns all settings as a map[string]interface{}
+func AllSettings() map[string]interface{} {
+	return Config.AllSettings()
+}

@@ -2,15 +2,17 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
-	"github.com/Glitch-guy0/authService/src/modules/core"
-	"github.com/Glitch-guy0/authService/src/modules/logger"
-	"github.com/Glitch-guy0/authService/src/modules/server"
+	"github.com/Glitch-guy0/authService/modules/config"
+	"github.com/Glitch-guy0/authService/modules/core"
+	"github.com/Glitch-guy0/authService/modules/logger"
+	"github.com/Glitch-guy0/authService/modules/server"
 )
 
 // Version will be set during build
@@ -47,6 +49,11 @@ func main() {
 }
 
 func run(ctx context.Context, version VersionInfo) error {
+	// Initialize configuration first
+	if err := config.Init("./configs"); err != nil {
+		return fmt.Errorf("failed to initialize configuration: %w", err)
+	}
+
 	// Initialize logger
 	log := logger.New()
 
@@ -54,11 +61,11 @@ func run(ctx context.Context, version VersionInfo) error {
 	log.Info("Starting auth-service version %s (commit: %s, built: %s)",
 		version.Version, version.Commit, version.Date)
 
-	// Initialize application context
-	appCtx := core.NewAppContextWithDefaults(log)
+	// Initialize application context with loaded configuration
+	appCtx := core.NewAppContext(log, config.AllSettings())
 
 	// Initialize HTTP server
-	server := server.NewServerWithDefaults(appCtx)
+	server := server.NewServerFromConfig(appCtx)
 	server.Initialize()
 
 	// Start server in a goroutine

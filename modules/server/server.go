@@ -78,6 +78,53 @@ func NewServerWithDefaults(appCtx *core.AppContext) *Server {
 	return NewServer(appCtx, DefaultServerConfig())
 }
 
+// NewServerFromConfig creates a server with configuration from app context
+func NewServerFromConfig(appCtx *core.AppContext) *Server {
+	config := appCtx.GetConfig()
+
+	// Extract server configuration from the app context
+	serverConfig := ServerConfig{
+		Host:         "0.0.0.0", // default host
+		Port:         8080,      // default port
+		ReadTimeout:  15 * time.Second,
+		WriteTimeout: 15 * time.Second,
+		IdleTimeout:  60 * time.Second,
+		Mode:         "debug",
+	}
+
+	// Try to get server config from the configuration
+	if serverConfigMap, ok := config["server"].(map[string]interface{}); ok {
+		if host, ok := serverConfigMap["host"].(string); ok {
+			serverConfig.Host = host
+		}
+		if port, ok := serverConfigMap["port"].(int); ok {
+			serverConfig.Port = port
+		}
+		if mode, ok := serverConfigMap["debug"].(bool); ok {
+			if mode {
+				serverConfig.Mode = "debug"
+			} else {
+				serverConfig.Mode = "release"
+			}
+		}
+
+		// Handle timeouts if present
+		if timeout, ok := serverConfigMap["timeout"].(map[string]interface{}); ok {
+			if read, ok := timeout["read"].(int); ok {
+				serverConfig.ReadTimeout = time.Duration(read) * time.Second
+			}
+			if write, ok := timeout["write"].(int); ok {
+				serverConfig.WriteTimeout = time.Duration(write) * time.Second
+			}
+			if idle, ok := timeout["idle"].(int); ok {
+				serverConfig.IdleTimeout = time.Duration(idle) * time.Second
+			}
+		}
+	}
+
+	return NewServer(appCtx, serverConfig)
+}
+
 // GetEngine returns the Gin engine for route registration
 func (s *Server) GetEngine() *gin.Engine {
 	return s.engine
