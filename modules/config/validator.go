@@ -22,8 +22,14 @@ func ValidateConfig() error {
 	}
 
 	var cfg AppConfig
-	if err := viper.Unmarshal(&cfg); err != nil {
-		return fmt.Errorf("failed to unmarshal config: %w", err)
+	if Config != nil {
+		if err := Config.Unmarshal(&cfg); err != nil {
+			return fmt.Errorf("failed to unmarshal config: %w", err)
+		}
+	} else {
+		if err := viper.Unmarshal(&cfg); err != nil {
+			return fmt.Errorf("failed to unmarshal config: %w", err)
+		}
 	}
 
 	// Perform basic validation
@@ -33,7 +39,7 @@ func ValidateConfig() error {
 
 	// Perform advanced validation
 	if err := validateDatabaseConfig(&cfg); err != nil {
-		return err
+		return fmt.Errorf("invalid configuration: %w", err)
 	}
 
 	return nil

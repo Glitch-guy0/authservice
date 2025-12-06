@@ -32,6 +32,9 @@ func LoadEnv() error {
 	// Bind environment variables
 	bindEnvs()
 
+	// Set the global Config variable
+	Config = viper.GetViper()
+
 	return nil
 }
 
@@ -90,6 +93,9 @@ func bindEnvs() {
 
 // GetEnv returns the current environment
 func GetEnv() string {
+	if Config != nil {
+		return strings.ToLower(Config.GetString("env"))
+	}
 	return strings.ToLower(viper.GetString("env"))
 }
 

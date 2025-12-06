@@ -123,7 +123,7 @@ func TestHealthService_GetHealth_NoCheckers(t *testing.T) {
 
 	assert.Equal(t, StatusHealthy, health.Status)
 	assert.NotZero(t, health.Timestamp)
-	assert.Equal(t, "dev", health.Version.Version)
+	assert.Equal(t, "1.0.0", health.Version.Version)
 	assert.Empty(t, health.Checks)
 	assert.NotEmpty(t, health.Uptime)
 }

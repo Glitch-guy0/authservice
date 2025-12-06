@@ -58,7 +58,7 @@ func TestHealthHandler_HealthCheck_Healthy(t *testing.T) {
 
 	assert.Equal(t, StatusHealthy, response.Status)
 	assert.NotZero(t, response.Timestamp)
-	assert.Equal(t, "dev", response.Version.Version)
+	assert.Equal(t, "1.0.0", response.Version.Version)
 	assert.NotEmpty(t, response.Checks)
 	assert.NotEmpty(t, response.Uptime)
 }

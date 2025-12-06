@@ -71,11 +71,11 @@ func run(ctx context.Context, version VersionInfo) error {
 	}()
 
 	// Log server started successfully
-	log.Info("HTTP server started successfully",
-		"address", server.GetAddress(),
-		"port", server.GetConfig().Port,
-		"mode", server.GetConfig().Mode,
-	)
+	log.WithFields(map[string]interface{}{
+		"address": server.GetAddress(),
+		"port":    server.GetConfig().Port,
+		"mode":    server.GetConfig().Mode,
+	}).Info("HTTP server started successfully")
 
 	// Wait for interrupt signal to gracefully shut down the server
 	select {
@@ -89,7 +89,7 @@ func run(ctx context.Context, version VersionInfo) error {
 		defer cancel()
 
 		if err := server.Shutdown(shutdownCtx); err != nil {
-			log.Error("Server shutdown failed", "error", err)
+			log.WithField("error", err).Error("Server shutdown failed")
 			return err
 		}
 

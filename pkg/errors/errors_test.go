@@ -3,7 +3,10 @@ package errors
 import (
 	"errors"
 	"net/http"
+	"net/http/httptest"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestAppError_Error(t *testing.T) {
@@ -172,7 +175,14 @@ func TestFormat(t *testing.T) {
 
 func TestJSON(t *testing.T) {
 	// This would typically be tested with an integration test using httptest
-	// For now, we'll just test that it doesn't panic
+	// For now, we'll just test that it doesn't panic with a proper writer
 	err := New(ErrCodeValidation, "invalid input", "test")
-	JSON(nil, err) // We can't easily test the writer output in a unit test
+
+	// Use httptest.NewRecorder instead of nil
+	w := httptest.NewRecorder()
+	JSON(w, err) // We can't easily test the writer output in a unit test
+
+	// Verify the response was written
+	assert.Equal(t, http.StatusBadRequest, w.Code)
+	assert.Equal(t, "application/json", w.Header().Get("Content-Type"))
 }
