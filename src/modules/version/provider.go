@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	version   = "dev"      // Set during build
+	version   = "1.0.0"    // Set during build
 	commit    = "none"     // Set during build
 	buildTime = "unknown"  // Set during build
 	buildUser = "unknown"  // Set during build
