@@ -97,10 +97,10 @@
 ## Phase 7: Testing & Documentation (US6)
 
 ### Testing Infrastructure
-- [ ] T044 [US6] Set up test utilities in `test/testutils/`
-- [ ] T045 [US6] Add test helpers in `test/helpers/`
-- [ ] T046 [US6] Configure code coverage in `.github/workflows/coverage.yml`
-- [ ] T047 [US6] Add benchmark tests for critical paths
+- [X] T044 [US6] Set up test utilities in `test/testutils/`
+- [X] T045 [US6] Add test helpers in `test/helpers/`
+- [X] T046 [US6] Configure code coverage in `.github/workflows/coverage.yml`
+- [X] T047 [US6] Add benchmark tests for critical paths
 
 ### Documentation
 - [ ] T048 [US6] Update main `README.md` with setup instructions

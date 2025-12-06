@@ -47,3 +47,53 @@ func MustCopyFile(src, dst string) {
 		panic(err)
 	}
 }
+
+// CreateTempDir creates a temporary directory for testing
+func CreateTempDir() (string, func()) {
+	tmpDir, err := os.MkdirTemp("", "authservice_test_*")
+	if err != nil {
+		panic(err)
+	}
+
+	cleanup := func() {
+		os.RemoveAll(tmpDir)
+	}
+
+	return tmpDir, cleanup
+}
+
+// CreateTempFile creates a temporary file with the given content
+func CreateTempFile(content string) (string, func()) {
+	tmpFile, err := os.CreateTemp("", "authservice_test_*.tmp")
+	if err != nil {
+		panic(err)
+	}
+
+	if _, err := tmpFile.WriteString(content); err != nil {
+		tmpFile.Close()
+		os.Remove(tmpFile.Name())
+		panic(err)
+	}
+	tmpFile.Close()
+
+	cleanup := func() {
+		os.Remove(tmpFile.Name())
+	}
+
+	return tmpFile.Name(), cleanup
+}
+
+// FileExists checks if a file exists
+func FileExists(path string) bool {
+	_, err := os.Stat(path)
+	return !os.IsNotExist(err)
+}
+
+// DirExists checks if a directory exists
+func DirExists(path string) bool {
+	info, err := os.Stat(path)
+	if err != nil {
+		return false
+	}
+	return info.IsDir()
+}
