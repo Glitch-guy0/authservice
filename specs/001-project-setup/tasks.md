@@ -103,10 +103,10 @@
 - [X] T047 [US6] Add benchmark tests for critical paths
 
 ### Documentation
-- [ ] T048 [US6] Update main `README.md` with setup instructions
-- [ ] T049 [US6] Document environment variables in `docs/ENV.md`
-- [ ] T050 [US6] Add contribution guidelines in `CONTRIBUTING.md`
-- [ ] T051 [US6] Create API documentation in `docs/API.md`
+- [X] T048 [US6] Update main `README.md` with setup instructions
+- [X] T049 [US6] Document environment variables in `docs/ENV.md`
+- [X] T050 [US6] Add contribution guidelines in `CONTRIBUTING.md`
+- [X] T051 [US6] Create API documentation in `docs/API.md`
 
 ## Phase 8: Finalization
 

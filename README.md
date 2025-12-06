@@ -1,26 +1,31 @@
 # Auth Service
 
-A secure authentication service built with Go, Gin, and modern best practices.
+A secure, production-ready authentication service built with Go, Gin, and modern best practices. This service provides JWT-based authentication with role-based access control, rate limiting, and comprehensive monitoring.
 
-## Features
+## ✨ Features
 
-- JWT-based authentication
-- Structured logging with logrus
-- Configuration management with viper
-- Graceful shutdown
-- Health check endpoints
-- Request validation
-- API versioning
+- 🔒 JWT-based authentication with refresh tokens
+- 📝 Structured logging with logrus
+- ⚙️ Configuration management with viper
+- 🛑 Graceful shutdown handling
+- 🩺 Health check endpoints
+- ✅ Request validation
+- 🔄 API versioning
+- 📊 Prometheus metrics
+- 🚦 Rate limiting
+- 🔍 Request/Response logging
+- 🔄 CORS support
+- 🛡️ Security headers
+- 📈 Performance monitoring
 
-## Prerequisites
+## 🚀 Prerequisites
 
 - Go 1.21 or later
 - Git
-- Make (optional)
+- Make (optional but recommended)
+- Docker & Docker Compose (for containerized deployment)
 
-## Getting Started
-
-### Installation
+## 🛠️ Installation
 
 1. Clone the repository:
    ```bash
@@ -33,21 +38,95 @@ A secure authentication service built with Go, Gin, and modern best practices.
    go mod download
    ```
 
-### Configuration
+## ⚙️ Configuration
 
-Copy the example environment file and update the values:
+1. Copy the example configuration file:
+   ```bash
+   cp configs/config.example.yaml configs/config.yaml
+   ```
+
+2. Update the configuration in `configs/config.yaml` with your settings.
+
+3. (Optional) Set environment variables to override configuration:
+   ```bash
+   export APP_ENV=development
+   export SERVER_PORT=8080
+   ```
+
+## 🏃‍♂️ Running the Application
+
+### Development Mode
 
 ```bash
-cp configs/config.example.yaml configs/config.yaml
+make run
 ```
 
-### Running the Application
+This will start the server with live reload using `air`.
+
+### Production Mode
 
 ```bash
-# Development mode
-make run
+make build && ./authService
+```
 
-# Production mode
+### Using Docker
+
+```bash
+docker-compose up --build
+```
+
+## 📚 API Documentation
+
+Once the server is running, you can access:
+
+- **API Documentation**: `http://localhost:8080/docs` (Swagger UI)
+- **Health Check**: `http://localhost:8080/health`
+- **Metrics**: `http://localhost:8080/metrics`
+
+## 🧪 Running Tests
+
+```bash
+# Run unit tests
+make test
+
+# Run integration tests
+make test-integration
+
+# Run benchmarks
+make benchmark
+
+# Check test coverage
+make coverage
+```
+
+## 🧹 Code Quality
+
+```bash
+# Lint the code
+make lint
+
+# Format the code
+make fmt
+
+# Check for security vulnerabilities
+make security
+```
+
+## 🤝 Contributing
+
+We welcome contributions! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📝 Environment Variables
+
+For detailed information about environment variables, see [ENV.md](docs/ENV.md).
+
+## 📖 API Reference
+
+For detailed API documentation, see [API.md](docs/API.md).
 make run-prod
 ```
 
