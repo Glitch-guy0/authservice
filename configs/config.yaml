@@ -5,7 +5,7 @@ env: development
 
 # Server configuration
 server:
-  port: 8000
+  port: 8080
   timeout:
     read: 15    # seconds
     write: 15   # seconds

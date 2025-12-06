@@ -9,8 +9,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/Glitch-guy0/authService/src/modules/core"
-	"github.com/Glitch-guy0/authService/src/modules/logger"
+	"github.com/Glitch-guy0/authService/modules/core"
+	"github.com/Glitch-guy0/authService/modules/logger"
 )
 
 // MockLogger for testing

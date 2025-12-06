@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/Glitch-guy0/authService/src/modules/logger"
+	"github.com/Glitch-guy0/authService/modules/logger"
 )
 
 // BenchmarkLoggerInfo benchmarks the Info method of the logger

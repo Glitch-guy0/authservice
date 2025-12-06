@@ -51,29 +51,29 @@
 
 #### Migration to Constitution-Compliant Structure
 - [X] T028a [US4] Create `src/` directory structure
-- [X] T028b [US4] Migrate `modules/core/` to `src/modules/core/`
-- [X] T028c [US4] Migrate `modules/logger/` to `src/modules/logger/`
-- [X] T028d [US4] Migrate `modules/server/` to `src/modules/server/`
+- [X] T028b [US4] Migrate `modules/core/` to `modules/core/`
+- [X] T028c [US4] Migrate `modules/logger/` to `modules/logger/`
+- [X] T028d [US4] Migrate `modules/server/` to `modules/server/`
 - [X] T028e [US4] Update all import paths to use `src/` structure
 
 #### Health Check Implementation
-- [X] T029a [US4] Create `src/modules/api/health/` directory structure
-- [X] T029b [US4] Define health check types in `src/modules/api/health/types.go`
-- [X] T029c [US4] Create health check handler in `src/modules/api/health/handler.go`
-- [X] T029d [US4] Implement health check service in `src/modules/api/health/service.go`
+- [X] T029a [US4] Create `modules/api/health/` directory structure
+- [X] T029b [US4] Define health check types in `modules/api/health/types.go`
+- [X] T029c [US4] Create health check handler in `modules/api/health/handler.go`
+- [X] T029d [US4] Implement health check service in `modules/api/health/service.go`
 - [X] T029e [US4] Register health endpoint with server
 
 #### Version Information
-- [X] T030a [US4] Create `src/modules/version/` directory structure
-- [X] T030b [US4] Define version types in `src/modules/version/types.go`
-- [X] T030c [US4] Implement version provider in `src/modules/version/provider.go`
+- [X] T030a [US4] Create `modules/version/` directory structure
+- [X] T030b [US4] Define version types in `modules/version/types.go`
+- [X] T030c [US4] Implement version provider in `modules/version/provider.go`
 - [X] T030d [US4] Add build-time version injection
 - [X] T030e [US4] Integrate version with health check
 #### Testing & Documentation
-- [X] T031a [US4] Write unit tests for health service in `src/modules/api/health/service_test.go`
-- [X] T031b [US4] Write handler tests in `src/modules/api/health/handler_test.go`
-- [X] T031c [US4] Write integration tests in `src/modules/api/health/integration_test.go`
-- [X] T031d [US4] Add health check documentation in `src/modules/api/health/README.md`
+- [X] T031a [US4] Write unit tests for health service in `modules/api/health/service_test.go`
+- [X] T031b [US4] Write handler tests in `modules/api/health/handler_test.go`
+- [X] T031c [US4] Write integration tests in `modules/api/health/integration_test.go`
+- [X] T031d [US4] Add health check documentation in `modules/api/health/README.md`
 
 ## Phase 5: Error Handling (Cross-cutting)
 
@@ -117,7 +117,7 @@
 - [X] T055 Verify all requirements from spec are met
 
 ### Release Preparation
-- [X] T056 Update version in `src/modules/version/provider.go`
+- [X] T056 Update version in `modules/version/provider.go`
 - [X] T057 Create release notes in `CHANGELOG.md`
 - [X] T058 Tag the release with semantic versioning
 - [X] T059 Verify all tests pass in CI/CD pipeline
@@ -161,7 +161,7 @@
 
 ## Phase 1: Core Components
 
-### 1. Logger Implementation (`src/modules/logger/`)
+### 1. Logger Implementation (`modules/logger/`)
 - [X] Define `Logger` interface with standard methods (Info, Warn, Error, Debug)
 - [X] Implement `logrus`-based logger
 - [X] Add context support with request IDs
@@ -177,7 +177,7 @@
 - [X] Create default config file
 - [X] Write tests for config loading
 
-### 3. Application Context (`src/modules/core/`)
+### 3. Application Context (`modules/core/`)
 - [X] Define `AppContext` struct to hold dependencies
 - [X] Implement constructor for `AppContext`
 - [X] Add methods for graceful shutdown
@@ -186,7 +186,7 @@
 
 ## Phase 2: Web Server Setup
 
-### 1. HTTP Server (`src/modules/server/`)
+### 1. HTTP Server (`modules/server/`)
 - [X] Set up Gin server with middleware
 - [X] Add request logging middleware
 - [X] Add recovery middleware
@@ -194,7 +194,7 @@
 - [X] Add CORS support
 - [X] Write server tests
 
-### 2. Health Check Endpoint (`src/modules/api/health/`)
+### 2. Health Check Endpoint (`modules/api/health/`)
 - [X] Implement `GET /health` endpoint
 - [X] Add version information to response
 - [X] Include basic service status

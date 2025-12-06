@@ -5,9 +5,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Glitch-guy0/authService/src/modules/core"
-	"github.com/Glitch-guy0/authService/src/modules/logger"
-	"github.com/Glitch-guy0/authService/src/modules/version"
+	"github.com/Glitch-guy0/authService/modules/core"
+	"github.com/Glitch-guy0/authService/modules/logger"
+	"github.com/Glitch-guy0/authService/modules/version"
 )
 
 type HealthService struct {

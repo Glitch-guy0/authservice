@@ -99,7 +99,7 @@ Sync Impact Report
 - all backend code MUST live under `src/`.
 
 - global folders (kebab-case only):
-  - `src/modules/`
+  - `modules/`
   - `src/utils/`
   - `src/helpers/`
   - `src/middleware/`
@@ -116,7 +116,7 @@ Sync Impact Report
 - each domain module MUST follow this structure:
 
 ```text
-src/modules/<domain>/
+modules/<domain>/
   <domain>.interface/      # dtos, validators, contracts
   <domain>.controller/     # endpoints (http/grpc/ws)
   <domain>.service/        # business logic
@@ -197,8 +197,8 @@ src/repository/
 - or module-scoped:
 
 ```text
-src/modules/user/user.repository/
-src/modules/payment/payment.repository/
+modules/user/user.repository/
+modules/payment/payment.repository/
 ```
 
 - typical usage:
@@ -233,7 +233,7 @@ src/modules/payment/payment.repository/
 - modules must self-register:
 
 ```text
-src/modules/<domain>/<domain>.module.*
+modules/<domain>/<domain>.module.*
 exports:
   - providers
   - services
@@ -362,7 +362,7 @@ type AppException = {
   - folder structure example:
 
 ```text
-src/modules/user/user.exception/
+modules/user/user.exception/
   user-exception-base.*
   user-creation-failed-exception.*
   user-not-found-exception.*

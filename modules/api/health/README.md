@@ -203,11 +203,11 @@ The version provider uses build-time variables that can be set during compilatio
 
 ```bash
 go build -ldflags \
-  "-X github.com/Glitch-guy0/authService/src/modules/version.version=1.0.0 \
-   -X github.com/Glitch-guy0/authService/src/modules/version.commit=abc123 \
-   -X github.com/Glitch-guy0/authService/src/modules/version.buildTime=2025-12-05T16:49:55Z \
-   -X github.com/Glitch-guy0/authService/src/modules/version.buildUser=builder \
-   -X github.com/Glitch-guy0/authService/src/modules/version.buildHost=build-server"
+  "-X github.com/Glitch-guy0/authService/modules/version.version=1.0.0 \
+   -X github.com/Glitch-guy0/authService/modules/version.commit=abc123 \
+   -X github.com/Glitch-guy0/authService/modules/version.buildTime=2025-12-05T16:49:55Z \
+   -X github.com/Glitch-guy0/authService/modules/version.buildUser=builder \
+   -X github.com/Glitch-guy0/authService/modules/version.buildHost=build-server"
 ```
 
 ### Version Types
@@ -308,19 +308,19 @@ startupProbe:
 ### Unit Tests
 Run unit tests for the health module:
 ```bash
-go test ./src/modules/api/health/... -v
+go test ./modules/api/health/... -v
 ```
 
 ### Integration Tests
 Run integration tests:
 ```bash
-go test ./src/modules/api/health/... -v -tags=integration
+go test ./modules/api/health/... -v -tags=integration
 ```
 
 ### Test Coverage
 Generate test coverage report:
 ```bash
-go test ./src/modules/api/health/... -coverprofile=coverage.out
+go test ./modules/api/health/... -coverprofile=coverage.out
 go tool cover -html=coverage.out -o coverage.html
 ```
 
