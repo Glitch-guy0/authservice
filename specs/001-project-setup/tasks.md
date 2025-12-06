@@ -48,57 +48,79 @@
 - [X] T027 [US4] Write server tests in `modules/server/server_test.go`
 
 ### Health Check Endpoint
-- [ ] T028 [US4] Create `modules/api/health/handler.go`
-- [ ] T029 [US4] Implement health check logic in `modules/api/health/service.go`
-- [ ] T030 [US4] Add version information in `modules/version/version.go`
-- [ ] T031 [US4] Write integration tests in `modules/api/health/handler_test.go`
+
+#### Migration to Constitution-Compliant Structure
+- [X] T028a [US4] Create `src/` directory structure
+- [X] T028b [US4] Migrate `modules/core/` to `src/modules/core/`
+- [X] T028c [US4] Migrate `modules/logger/` to `src/modules/logger/`
+- [X] T028d [US4] Migrate `modules/server/` to `src/modules/server/`
+- [X] T028e [US4] Update all import paths to use `src/` structure
+
+#### Health Check Implementation
+- [X] T029a [US4] Create `src/modules/api/health/` directory structure
+- [X] T029b [US4] Define health check types in `src/modules/api/health/types.go`
+- [X] T029c [US4] Create health check handler in `src/modules/api/health/handler.go`
+- [X] T029d [US4] Implement health check service in `src/modules/api/health/service.go`
+- [X] T029e [US4] Register health endpoint with server
+
+#### Version Information
+- [X] T030a [US4] Create `src/modules/version/` directory structure
+- [X] T030b [US4] Define version types in `src/modules/version/types.go`
+- [X] T030c [US4] Implement version provider in `src/modules/version/provider.go`
+- [X] T030d [US4] Add build-time version injection
+- [X] T030e [US4] Integrate version with health check
+#### Testing & Documentation
+- [X] T031a [US4] Write unit tests for health service in `src/modules/api/health/service_test.go`
+- [X] T031b [US4] Write handler tests in `src/modules/api/health/handler_test.go`
+- [X] T031c [US4] Write integration tests in `src/modules/api/health/integration_test.go`
+- [X] T031d [US4] Add health check documentation in `src/modules/api/health/README.md`
 
 ## Phase 5: Error Handling (Cross-cutting)
 
 ### Error Management
-- [ ] T032 [P] Create `pkg/errors/errors.go` with custom error types
-- [ ] T033 [P] Implement error formatter in `pkg/errors/formatter.go`
-- [ ] T034 [P] Add error handling middleware in `modules/server/middleware/error_handler.go`
-- [ ] T035 [P] Write tests in `pkg/errors/errors_test.go`
-- [ ] T036 [P] Document error handling approach in `pkg/errors/README.md`
+- [ ] T033 [P] Create `pkg/errors/errors.go` with custom error types
+- [ ] T034 [P] Implement error formatter in `pkg/errors/formatter.go`
+- [ ] T035 [P] Add error handling middleware in `modules/server/middleware/error_handler.go`
+- [ ] T036 [P] Write tests in `pkg/errors/errors_test.go`
+- [ ] T037 [P] Document error handling approach in `pkg/errors/README.md`
 
 ## Phase 6: Configuration Management (Cross-cutting)
 
 ### Configuration Setup
-- [ ] T037 [P] Create `modules/config/config.go` with Viper setup
-- [ ] T038 [P] Define configuration structure in `modules/config/types.go`
-- [ ] T039 [P] Add environment variable support in `modules/config/env.go`
-- [ ] T040 [P] Create default config in `configs/config.yaml`
-- [ ] T041 [P] Add config validation in `modules/config/validator.go`
-- [ ] T042 [P] Write tests in `modules/config/config_test.go`
+- [ ] T038 [P] Create `modules/config/config.go` with Viper setup
+- [ ] T039 [P] Define configuration structure in `modules/config/types.go`
+- [ ] T040 [P] Add environment variable support in `modules/config/env.go`
+- [ ] T041 [P] Create default config in `configs/config.yaml`
+- [ ] T042 [P] Add config validation in `modules/config/validator.go`
+- [ ] T043 [P] Write tests in `modules/config/config_test.go`
 
 ## Phase 7: Testing & Documentation (US6)
 
 ### Testing Infrastructure
-- [ ] T043 [US6] Set up test utilities in `test/testutils/`
-- [ ] T044 [US6] Add test helpers in `test/helpers/`
-- [ ] T045 [US6] Configure code coverage in `.github/workflows/coverage.yml`
-- [ ] T046 [US6] Add benchmark tests for critical paths
+- [ ] T044 [US6] Set up test utilities in `test/testutils/`
+- [ ] T045 [US6] Add test helpers in `test/helpers/`
+- [ ] T046 [US6] Configure code coverage in `.github/workflows/coverage.yml`
+- [ ] T047 [US6] Add benchmark tests for critical paths
 
 ### Documentation
-- [ ] T047 [US6] Update main `README.md` with setup instructions
-- [ ] T048 [US6] Document environment variables in `docs/ENV.md`
-- [ ] T049 [US6] Add contribution guidelines in `CONTRIBUTING.md`
-- [ ] T050 [US6] Create API documentation in `docs/API.md`
+- [ ] T048 [US6] Update main `README.md` with setup instructions
+- [ ] T049 [US6] Document environment variables in `docs/ENV.md`
+- [ ] T050 [US6] Add contribution guidelines in `CONTRIBUTING.md`
+- [ ] T051 [US6] Create API documentation in `docs/API.md`
 
 ## Phase 8: Finalization
 
 ### Code Quality
-- [ ] T051 Run static analysis with `golangci-lint run`
-- [ ] T052 Review for security vulnerabilities
-- [ ] T053 Check for performance issues
-- [ ] T054 Verify all requirements from spec are met
+- [ ] T052 Run static analysis with `golangci-lint run`
+- [ ] T053 Review for security vulnerabilities
+- [ ] T054 Check for performance issues
+- [ ] T055 Verify all requirements from spec are met
 
 ### Release Preparation
-- [ ] T055 Update version in `internal/version/version.go`
-- [ ] T056 Create release notes in `CHANGELOG.md`
-- [ ] T057 Tag the release with semantic versioning
-- [ ] T058 Verify all tests pass in CI/CD pipeline
+- [ ] T056 Update version in `internal/version/version.go`
+- [ ] T057 Create release notes in `CHANGELOG.md`
+- [ ] T058 Tag the release with semantic versioning
+- [ ] T059 Verify all tests pass in CI/CD pipeline
 
 ## Parallel Execution Opportunities
 
