@@ -142,6 +142,7 @@ func (ac *AppContext) WaitForShutdown() <-chan struct{} {
 func (ac *AppContext) RegisterShutdownHandler(name string, handler func(ctx context.Context) error, timeout time.Duration, priority int) {
 	// This would integrate with a shutdown manager
 	// For now, we'll just log it
+	_ = handler // TODO: Implement actual shutdown handler registration
 	ac.Logger.Info("Shutdown handler registered", "name", name, "timeout", timeout, "priority", priority)
 }
 

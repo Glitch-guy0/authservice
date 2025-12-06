@@ -1,10 +1,10 @@
 package benchmark
 
 import (
-"fmt"
-"os"
-"os/exec"
-"path/filepath"
+	"fmt"
+	"os"
+	"os/exec"
+	"path/filepath"
 )
 
 // RunAllBenchmarks runs all benchmark tests
@@ -15,7 +15,7 @@ func RunAllBenchmarks() error {
 	}
 
 	benchmarkDir := filepath.Join(projectRoot, "test", "benchmark")
-	
+
 	// Change to benchmark directory
 	if err := os.Chdir(benchmarkDir); err != nil {
 		return fmt.Errorf("failed to change to benchmark directory: %w", err)
@@ -25,7 +25,7 @@ func RunAllBenchmarks() error {
 	cmd := exec.Command("go", "test", "-bench=.", "-benchmem", "-count=3")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	
+
 	if err := cmd.Run(); err != nil {
 		return fmt.Errorf("failed to run benchmarks: %w", err)
 	}
@@ -41,7 +41,7 @@ func RunSpecificBenchmark(benchmarkName string) error {
 	}
 
 	benchmarkDir := filepath.Join(projectRoot, "test", "benchmark")
-	
+
 	// Change to benchmark directory
 	if err := os.Chdir(benchmarkDir); err != nil {
 		return fmt.Errorf("failed to change to benchmark directory: %w", err)
@@ -51,7 +51,7 @@ func RunSpecificBenchmark(benchmarkName string) error {
 	cmd := exec.Command("go", "test", "-bench="+benchmarkName, "-benchmem", "-count=3")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	
+
 	if err := cmd.Run(); err != nil {
 		return fmt.Errorf("failed to run benchmark %s: %w", benchmarkName, err)
 	}

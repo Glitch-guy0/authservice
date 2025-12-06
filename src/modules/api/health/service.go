@@ -40,8 +40,12 @@ func (hs *HealthService) RegisterChecker(checker HealthChecker) {
 
 func (hs *HealthService) GetHealth(ctx context.Context) HealthResponse {
 	overallStatus := StatusHealthy
-	var checks []Check
+	hs.mu.RLock()
+	checkerCount := len(hs.checkers)
+	hs.mu.RUnlock()
+	checks := make([]Check, 0, checkerCount)
 
+	hs.mu.RLock()
 	for _, checker := range hs.checkers {
 		checkStart := time.Now()
 		check := checker.Check(ctx)
@@ -54,6 +58,7 @@ func (hs *HealthService) GetHealth(ctx context.Context) HealthResponse {
 			overallStatus = StatusDegraded
 		}
 	}
+	hs.mu.RUnlock()
 
 	return HealthResponse{
 		Status:    overallStatus,

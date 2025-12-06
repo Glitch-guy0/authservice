@@ -105,7 +105,7 @@ func (sm *ShutdownManager) WaitForShutdown() {
 		}
 
 	case <-sm.server.appCtx.Context().Done():
-		sm.logger.Info("Application context cancelled, shutting down")
+		sm.logger.Info("Application context canceled, shutting down")
 
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()

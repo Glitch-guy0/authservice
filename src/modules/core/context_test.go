@@ -176,7 +176,7 @@ func TestAppContextContext(t *testing.T) {
 		t.Error("Context should not be nil")
 	}
 
-	// Test that context is cancelled on shutdown
+	// Test that context is canceled on shutdown
 	go func() {
 		time.Sleep(10 * time.Millisecond)
 		ctx.Shutdown(1 * time.Second)
@@ -184,9 +184,9 @@ func TestAppContextContext(t *testing.T) {
 
 	select {
 	case <-appCtx.Done():
-		// Context should be cancelled
+		// Context should be canceled
 	case <-time.After(100 * time.Millisecond):
-		t.Error("Context should be cancelled after shutdown")
+		t.Error("Context should be canceled after shutdown")
 	}
 }
 

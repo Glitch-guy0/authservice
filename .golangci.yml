@@ -33,6 +33,54 @@ linters-settings:
     locale: US
   unparam:
     check-exported: true
+  depguard:
+    rules:
+      main:
+        allow:
+          - "github.com/Glitch-guy0/authService/src/modules/core"
+          - "github.com/Glitch-guy0/authService/src/modules/logger"
+          - "github.com/Glitch-guy0/authService/modules/config"
+          - "github.com/Glitch-guy0/authService/src/modules/api/health"
+          - "github.com/Glitch-guy0/authService/src/modules/version"
+          - "github.com/Glitch-guy0/authService/src/modules/server"
+          - "github.com/Glitch-guy0/authService/modules/core"
+          - "github.com/Glitch-guy0/authService/modules/logger"
+          - "github.com/Glitch-guy0/authService/pkg/errors"
+          - "github.com/gin-gonic/gin"
+          - "github.com/stretchr/testify/assert"
+          - "github.com/stretchr/testify/require"
+          - "github.com/stretchr/testify/mock"
+          - "github.com/spf13/viper"
+          - "github.com/sirupsen/logrus"
+          - "github.com/google/uuid"
+          - "github.com/go-playground/validator/v10"
+          - "golang.org/x/net/context"
+          - "context"
+          - "fmt"
+          - "os"
+          - "time"
+          - "net/http"
+          - "net/http/httptest"
+          - "sync"
+          - "encoding/json"
+          - "strconv"
+          - "strings"
+          - "bytes"
+          - "testing"
+          - "os/exec"
+          - "path/filepath"
+          - "syscall"
+          - "os/signal"
+          - "runtime"
+          - "runtime/debug"
+          - "net/url"
+          - "regexp"
+          - "io"
+          - "log"
+          - "reflect"
+          - "database/sql"
+          - "math/rand"
+          - "errors"
 
 linters:
   disable-all: true

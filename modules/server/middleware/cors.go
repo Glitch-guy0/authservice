@@ -171,14 +171,12 @@ func (cm *CORSMiddleware) Middleware() gin.HandlerFunc {
 					"origin", origin,
 				)
 			}
-		} else {
-			if cm.config.Debug {
-				cm.logger.Warn("CORS denied - origin not allowed",
-					"requestID", requestID,
-					"origin", origin,
-					"allowedOrigins", cm.config.AllowedOrigins,
-				)
-			}
+		} else if cm.config.Debug {
+			cm.logger.Warn("CORS denied - origin not allowed",
+				"requestID", requestID,
+				"origin", origin,
+				"allowedOrigins", cm.config.AllowedOrigins,
+			)
 		}
 
 		// Handle preflight requests

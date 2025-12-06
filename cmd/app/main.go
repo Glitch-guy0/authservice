@@ -41,6 +41,7 @@ func main() {
 	// Start the application
 	if err := run(ctx, versionInfo); err != nil {
 		os.Stderr.WriteString("error: " + err.Error() + "\n")
+		stop() // Call stop before exiting
 		os.Exit(1)
 	}
 }

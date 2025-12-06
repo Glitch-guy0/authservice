@@ -70,9 +70,9 @@ func NewAppContext(logger logger.Logger, config map[string]interface{}) *AppCont
 func NewAppContextWithDefaults(logger logger.Logger) *AppContext {
 	defaultConfig := map[string]interface{}{
 		"app_name":    "authService",
-		"version":     "1.0.0", // will be replaced when viper is initialized
+		"version":     "1.0.0",       // will be replaced when viper is initialized
 		"environment": "development", // will be replaced when viper is initialized
-		"debug":       true, // will be replaced when viper is initialized
+		"debug":       true,          // will be replaced when viper is initialized
 	}
 
 	return NewAppContext(logger, defaultConfig)
