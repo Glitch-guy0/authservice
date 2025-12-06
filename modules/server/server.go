@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/Glitch-guy0/authService/modules/api/health"
 	"github.com/Glitch-guy0/authService/modules/core"
 	"github.com/Glitch-guy0/authService/modules/logger"
 	"github.com/gin-gonic/gin"
@@ -251,8 +252,14 @@ func (s *Server) SetupMiddleware() {
 
 // SetupRoutes sets up the default routes
 func (s *Server) SetupRoutes() {
-	// Health check endpoint (will be implemented in T028-T031)
-	// s.engine.GET("/health", s.healthHandler)
+	// Initialize health handler
+	healthHandler := health.NewHealthHandler(s.appCtx)
+
+	// Health check endpoints
+	s.engine.GET("/health", healthHandler.HealthCheck)
+	s.engine.GET("/health/check", healthHandler.HealthCheck)
+	s.engine.GET("/health/live", healthHandler.LivenessProbe)
+	s.engine.GET("/health/ready", healthHandler.ReadinessProbe)
 
 	// API versioning base path
 	v1 := s.engine.Group("/api/v1")
