@@ -96,22 +96,23 @@ Sync Impact Report
 
 ## II. architecture-and-project-structure (module-centric)
 
-- all backend code MUST live under `src/`.
+- all backend code MUST live at the project root.
 
 - global folders (kebab-case only):
   - `modules/`
-  - `src/utils/`
-  - `src/helpers/`
-  - `src/middleware/`
-  - `src/persistence/`
-  - `src/repository/`
-  - `src/interface/`
-  - `src/core/`
-  - `src/utils/message-broker/`
+  - `utils/`
+  - `helpers/`
+  - `middleware/`
+  - `persistence/`
+  - `repository/`
+  - `interface/`
+  - `core/`
+  - `utils/message-broker/`
 
 - old structure removal:
-  - `src/service/` → removed
-  - `src/controller/` → removed
+  - `src/` → removed (Go projects use project root)
+  - `service/` → removed
+  - `controller/` → removed
 
 - each domain module MUST follow this structure:
 
@@ -147,7 +148,7 @@ modules/<domain>/
   - separate **how data is stored** (persistence) from **how the domain accesses data** (repository).
   - enforce dependency flow: `service → repository → persistence → db/cache`.
 
-- persistence (`src/persistence/`):
+- persistence (`persistence/`):
   - persistence is the **infrastructure-facing** representation of storage:
     - sql models / orm structs (e.g., gorm models in go).
     - nosql schemas / document models.
@@ -156,11 +157,11 @@ modules/<domain>/
   - persistence is derived from a **canonical schema/migration source** (tool-agnostic).
     - prisma support example:
       - prisma schema lives under `migrations/prisma/schema.prisma`.
-      - a generator converts prisma → gorm structs under `src/persistence/model/`.
+      - a generator converts prisma → gorm structs under `persistence/model/`.
   - recommended folder structure:
 
 ```text
-src/persistence/
+persistence/
   model/   # sql / relational orm models
   schema/  # nosql document schemas
   cache/   # cache key/value schemas
@@ -174,7 +175,7 @@ src/persistence/
 - persistence artifacts MUST be generated or derived from this canonical schema.
 - manual edits SHOULD be minimized and, when necessary, documented.
 
-#### repository layer (`src/repository/` or `<domain>.repository/`)
+#### repository layer (`repository/` or `<domain>.repository/`)
 
 - repositories provide **domain-centric access** to persistence.
 - repositories depend on:
@@ -187,7 +188,7 @@ src/persistence/
 - recommended structure:
 
 ```text
-src/repository/
+repository/
   user/
     user-repository.*
   payment/
@@ -260,7 +261,7 @@ exports:
 
 ## V. test-driven-development (non-negotiable)
 
-- tests MUST mirror `src` structure.
+- tests MUST mirror project structure at root.
 - unit tests MUST mock all external interactions.
 - integration tests MUST use ephemeral postgres/redis/brokers.
 - contract tests via requestly/pact (or equivalent) are required for external interfaces.
@@ -331,7 +332,7 @@ or, on error:
   - controllers convert exceptions into the error-envelope (section VIII).
 
 - base application exception (`AppException`):
-  - defined under: `src/core/errors/app-exception.*`.
+  - defined under: `core/errors/app-exception.*`.
   - MUST contain at least:
     - `message: string`.
     - `statusCode: number`.
@@ -408,7 +409,7 @@ catch (err) {
 
 ### app-context-pattern
 
-- single source of truth: `src/core/app-context.*`.
+- single source of truth: `core/app-context.*`.
 - app-context is immutable after initialization.
 - app-context contains references to:
   - db
@@ -428,7 +429,7 @@ catch (err) {
 
 ## XI. message-broker-and-event-system
 
-- universal provider lives under `src/utils/message-broker/`.
+- universal provider lives under `utils/message-broker/`.
 - kafka/rabbitmq/sqs/nats (or similar) are supported via provider adapters.
 - modules publish only via the domain event bus, not directly to broker
   clients.
