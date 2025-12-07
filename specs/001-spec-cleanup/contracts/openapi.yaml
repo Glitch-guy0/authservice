@@ -1,0 +1,133 @@
+openapi: 3.1.0
+info:
+  title: AuthService Health API
+  version: 0.1.0
+  description: |
+    Health, liveness, and readiness endpoints exposed by AuthService after consolidating
+    duplicate implementations per Specification Cleanup.
+servers:
+  - url: https://authservice.local
+    description: Local development
+paths:
+  /health:
+    get:
+      summary: Aggregated service health
+      operationId: getHealth
+      tags: [health]
+      responses:
+        '200':
+          description: Service is healthy or degraded (still responds 200)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '503':
+          description: Service is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+  /health/live:
+    get:
+      summary: Liveness probe
+      operationId: getLiveness
+      tags: [health]
+      responses:
+        '200':
+          description: Service process is alive
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LivenessResponse'
+  /health/ready:
+    get:
+      summary: Readiness probe
+      operationId: getReadiness
+      tags: [health]
+      responses:
+        '200':
+          description: Service is ready to receive traffic
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadinessResponse'
+        '503':
+          description: Service is not ready
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadinessResponse'
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      required: [status, timestamp, version, checks, uptime]
+      properties:
+        status:
+          type: string
+          enum: [healthy, degraded, unhealthy]
+        timestamp:
+          type: string
+          format: date-time
+        version:
+          $ref: '#/components/schemas/VersionInfo'
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        uptime:
+          type: string
+          description: ISO8601 duration string
+    Check:
+      type: object
+      required: [name, status, message, timestamp]
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+          enum: [healthy, degraded, unhealthy]
+        message:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        duration:
+          type: string
+          description: ISO8601 duration of the check
+        metadata:
+          type: object
+          additionalProperties: true
+    VersionInfo:
+      type: object
+      required: [version, commit, buildTime, goVersion]
+      properties:
+        version:
+          type: string
+        commit:
+          type: string
+        buildTime:
+          type: string
+          format: date-time
+        goVersion:
+          type: string
+    LivenessResponse:
+      type: object
+      required: [status, timestamp]
+      properties:
+        status:
+          type: string
+          enum: [ok]
+        timestamp:
+          type: string
+          format: date-time
+    ReadinessResponse:
+      type: object
+      required: [status, timestamp]
+      properties:
+        status:
+          type: string
+          enum: [ready, not ready]
+        timestamp:
+          type: string
+          format: date-time
