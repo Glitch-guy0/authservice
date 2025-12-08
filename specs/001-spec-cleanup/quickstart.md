@@ -1,51 +1,120 @@
-# Quickstart – Controller Pattern & Health Cleanup
+# Quickstart – Controller Pattern & Health Module
 
 ## 1. Prerequisites
 - Go 1.25.1 toolchain installed
 - `gin-gonic` and repo dependencies (`go mod download`)
 - Access to `core.AppContext` initialization (see `cmd/app/main.go`)
 
-## 2. Remove duplicate health implementation
-1. Delete `core/health.go` once all imports move to `modules/api/health`.
-2. Run `grep -R "core/health" -n .` and update any callers to use `modules/api/health`.
-3. Re-run `go test ./modules/api/health/...` to confirm handler parity.
+## 2. Health Module Structure
 
-## 3. Module controller contract
-Each module must expose a controller factory:
+The health module is now located at `modules/core/health/` with the following structure:
+- `controller.go`: Handles HTTP routing and delegates to handlers
+- `handler.go`: Implements the actual health check logic
+- `health.go`: Contains health check interfaces and models
+
+## 3. Module Controller Pattern
+
+Each module follows this controller pattern:
+
 ```go
-package healthcontroller
+// Controller handles HTTP requests for a specific domain
+package health
 
-func Routes(appCtx *core.AppContext, router *gin.RouterGroup) {
-    handler := health.NewHealthHandler(appCtx)
-    router.GET("/", handler.HealthCheck)
-    router.GET("/live", handler.LivenessProbe)
-    router.GET("/ready", handler.ReadinessProbe)
+type Controller struct {
+    appCtx *core.AppContext
+}
+
+// NewController creates a new controller instance
+func NewController(appCtx *core.AppContext) *Controller {
+    return &Controller{
+        appCtx: appCtx,
+    }
+}
+
+// RegisterRoutes sets up all routes for this controller
+func (c *Controller) RegisterRoutes(router *gin.RouterGroup) {
+    router.GET("", c.HealthCheck)
+    router.GET("/check", c.HealthCheck)
+    router.GET("/live", c.LivenessProbe)
+    router.GET("/ready", c.ReadinessProbe)
 }
 ```
-- Controllers stay stateless; all dependencies flow through `appCtx`.
-- Use module-local folders (`modules/api/<domain>/<domain>.controller/`).
 
-## 4. Registering controllers with the server
-In `cmd/app/main.go`:
-1. Initialize `appCtx := core.NewAppContext(...)`.
-2. Create Gin router `r := gin.Default()`.
-3. Mount health routes:
+Key points:
+- Controllers are stateless; all dependencies are injected via `appCtx`
+- Each controller is responsible for its own route registration
+- Handlers are kept separate from routing logic
+
+## 4. Registering Controllers with the Server
+
+In `cmd/app/main.go`, register the health controller:
+
 ```go
+// Initialize core dependencies
+appCtx := core.NewAppContext(...)
+
+// Create router
+r := gin.Default()
+
+// Register health routes
+healthController := health.NewController(appCtx)
 healthRoutes := r.Group("/health")
-healthcontroller.Routes(appCtx, healthRoutes)
+healthController.RegisterRoutes(healthRoutes)
 ```
-4. Repeat pattern for new modules to keep DI/responsibility consistent.
 
-## 5. Health checker extensions
-- Default checkers cover server, database placeholder, logger.
-- To add adapters (e.g., Postgres), create a struct satisfying `HealthChecker` and register via `HealthService.RegisterChecker` inside module bootstrap.
+## 5. Health Check Endpoints
 
-## 6. Verification checklist
-1. `go test ./...` passes.
-2. `curl localhost:8080/health` → returns status + version info.
-3. `curl localhost:8080/health/ready` returns 200 or 503 depending on checker state.
-4. `golangci-lint run` has zero issues.
+The health module provides these endpoints:
+- `GET /health` or `/health/check` - Full health check
+- `GET /health/live` - Liveness probe (is the app running?)
+- `GET /health/ready` - Readiness probe (can handle traffic?)
 
-## 7. Next Steps
-- After cleanup, run `/speckit.tasks` to generate implementation backlog.
+## 6. Extending Health Checks
+
+To add custom health checks:
+
+1. Implement the `HealthChecker` interface:
+
+```go
+type HealthChecker interface {
+    Check() HealthStatus
+    Name() string
+}
+```
+
+2. Register your checker during app initialization:
+
+```go
+healthService := health.NewHealthService()
+healthService.RegisterChecker("database", &DatabaseHealthChecker{db: appCtx.DB})
+```
+
+## 7. Verification
+
+1. Run tests:
+   ```bash
+   go test ./...
+   ```
+
+2. Test endpoints:
+   ```bash
+   # Basic health check
+   curl http://localhost:8080/health
+   
+   # Readiness check
+   curl http://localhost:8080/health/ready
+   
+   # Liveness check
+   curl http://localhost:8080/health/live
+   ```
+
+3. Run linters:
+   ```bash
+   golangci-lint run
+   ```
+
+## 8. Next Steps
+- Add more health checks as needed (database, cache, external services)
+- Implement circuit breakers for critical dependencies
+- Add metrics and logging to health endpoints
 - Coordinate config module relocation under `modules/core` per spec follow-up.

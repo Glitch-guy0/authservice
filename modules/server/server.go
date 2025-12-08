@@ -254,7 +254,7 @@ func (s *Server) SetupMiddleware() {
 func (s *Server) SetupRoutes() {
 	// Initialize health controller
 	healthController := health.NewController(s.appCtx)
-	healthController.RegisterRoutes(s.engine.Group(""))
+	healthController.RegisterRoutes(s.engine.Group("/health"))
 
 	// API versioning base path
 	v1 := s.engine.Group("/api/v1")

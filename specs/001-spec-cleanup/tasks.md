@@ -34,9 +34,20 @@
 
 ## Phase 5: Controller Pattern Documentation
 
-- [ ] T018 [US2] Review updated `modules/core/health/controller.go` structure
-- [ ] T019 [US2] Document controller export contract in quickstart.md with new health module location
-- [ ] T020 [US2] Verify `cmd/app/main.go` follows documented pattern for module registration
+- [x] T018 [US2] Review updated `modules/core/health/controller.go` structure
+  - [x] Controller follows the pattern with proper dependency injection
+  - [x] Clean separation of concerns between controller and handler
+  - [x] Proper route registration method
+
+- [x] T019 [US2] Document controller export contract in quickstart.md with new health module location
+  - [x] Updated quickstart.md with new controller pattern
+  - [x] Added documentation for health check endpoints
+  - [x] Included examples for extending health checks
+
+  - [x] T020 [US2] Verify `cmd/app/main.go` follows documented pattern for module registration
+  - [x] Note: The server initialization is handled in `modules/server/server.go`
+  - [x] Health controller is properly initialized and registered in `server.SetupRoutes()`
+  - [x] Follows the pattern of dependency injection through `appCtx`
 
 ## Phase 6: Validation & Testing
 

@@ -20,10 +20,10 @@ func NewController(appCtx *core.AppContext) *Controller {
 // RegisterRoutes registers all health routes
 func (c *Controller) RegisterRoutes(router *gin.RouterGroup) {
 	// Health check endpoints
-	router.GET("/health", c.HealthCheck)
-	router.GET("/health/check", c.HealthCheck)
-	router.GET("/health/live", c.LivenessProbe)
-	router.GET("/health/ready", c.ReadinessProbe)
+	router.GET("", c.HealthCheck)
+	router.GET("/check", c.HealthCheck)
+	router.GET("/live", c.LivenessProbe)
+	router.GET("/ready", c.ReadinessProbe)
 }
 
 // HealthCheck handles the health check endpoint
