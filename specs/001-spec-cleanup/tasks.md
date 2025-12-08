@@ -19,10 +19,10 @@
 
 ## Phase 3: Route Refactoring to Controller Pattern
 
-- [ ] T009 [US1] Extract health routes from `modules/server/server.go` to `modules/core/health/controller.go`
-- [ ] T010 [US1] Create health controller factory function `Routes(appCtx *core.AppContext, router *gin.RouterGroup)` in `modules/core/health/controller.go`
-- [ ] T011 [US1] Update `modules/server/server.go` to call health controller factory instead of static routes
-- [ ] T012 [US1] Verify `go build ./...` succeeds after route refactoring
+- [X] T009 [US1] Extract health routes from `modules/server/server.go` to `modules/core/health/controller.go`
+- [X] T010 [US1] Create health controller factory function `Routes(appCtx *core.AppContext, router *gin.RouterGroup)` in `modules/core/health/controller.go`
+- [X] T011 [US1] Update `modules/server/server.go` to call health controller factory instead of static routes
+- [X] T012 [US1] Verify `go build ./...` succeeds after route refactoring
 
 ## Phase 4: Module Migration to Core Structure
 

@@ -59,13 +59,13 @@ func (hh *HealthHandler) registerDefaultCheckers() {
 
 func (hh *HealthHandler) HealthCheck(c *gin.Context) {
 	ctx := c.Request.Context()
-
 	health := hh.healthService.GetHealth(ctx)
 
 	statusCode := http.StatusOK
-	if health.Status == StatusUnhealthy {
+	switch health.Status {
+	case StatusUnhealthy:
 		statusCode = http.StatusServiceUnavailable
-	} else if health.Status == StatusDegraded {
+	case StatusDegraded:
 		statusCode = http.StatusOK // Still return 200 for degraded
 	}
 

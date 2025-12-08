@@ -252,14 +252,9 @@ func (s *Server) SetupMiddleware() {
 
 // SetupRoutes sets up the default routes
 func (s *Server) SetupRoutes() {
-	// Initialize health handler
-	healthHandler := health.NewHealthHandler(s.appCtx)
-
-	// Health check endpoints
-	s.engine.GET("/health", healthHandler.HealthCheck)
-	s.engine.GET("/health/check", healthHandler.HealthCheck)
-	s.engine.GET("/health/live", healthHandler.LivenessProbe)
-	s.engine.GET("/health/ready", healthHandler.ReadinessProbe)
+	// Initialize health controller
+	healthController := health.NewController(s.appCtx)
+	healthController.RegisterRoutes(s.engine.Group(""))
 
 	// API versioning base path
 	v1 := s.engine.Group("/api/v1")
