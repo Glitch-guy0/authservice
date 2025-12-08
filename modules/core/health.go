@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Glitch-guy0/authService/modules/logger"
+	"github.com/Glitch-guy0/authService/modules/core/logger"
 )
 
 // HealthChecker interface for components that can report their health

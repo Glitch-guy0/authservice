@@ -9,9 +9,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Glitch-guy0/authService/modules/config"
 	"github.com/Glitch-guy0/authService/modules/core"
-	"github.com/Glitch-guy0/authService/modules/logger"
+	"github.com/Glitch-guy0/authService/modules/core/config"
+	"github.com/Glitch-guy0/authService/modules/core/logger"
 	"github.com/Glitch-guy0/authService/modules/server"
 )
 

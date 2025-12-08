@@ -26,11 +26,11 @@
 
 ## Phase 4: Module Migration to Core Structure
 
-- [ ] T013 [US1] Move `modules/config/` to `modules/core/config/` with all subdirectories
-- [ ] T014 [US1] Move `modules/logger/` to `modules/core/logger/` with all subdirectories
-- [ ] T015 [US1] Update all import statements referencing `modules/config` to `modules/core/config`
-- [ ] T016 [US1] Update all import statements referencing `modules/logger` to `modules/core/logger`
-- [ ] T017 [US1] Verify `go build ./...` succeeds after module migrations
+- [x] T013 [US1] Move `modules/config/` to `modules/core/config/` with all subdirectories
+- [x] T014 [US1] Move `modules/logger/` to `modules/core/logger/` with all subdirectories
+- [x] T015 [US1] Update all import statements referencing `modules/config` to `modules/core/config`
+- [x] T016 [US1] Update all import statements referencing `modules/logger` to `modules/core/logger`
+- [x] T017 [US1] Verify `go build ./...` succeeds after module migrations
 
 ## Phase 5: Controller Pattern Documentation
 

@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Glitch-guy0/authService/modules/logger"
+	"github.com/Glitch-guy0/authService/modules/core/logger"
 )
 
 // AppContext holds application-wide dependencies and configuration

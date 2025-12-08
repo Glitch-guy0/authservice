@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	config "github.com/Glitch-guy0/authService/modules/config"
+	config "github.com/Glitch-guy0/authService/modules/core/config"
 )
 
 func TestInit(t *testing.T) {

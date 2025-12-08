@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Glitch-guy0/authService/modules/logger"
+	"github.com/Glitch-guy0/authService/modules/core/logger"
 )
 
 func TestNewAppContext(t *testing.T) {

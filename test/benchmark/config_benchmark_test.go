@@ -3,7 +3,7 @@ package benchmark
 import (
 	"testing"
 
-	"github.com/Glitch-guy0/authService/modules/config"
+	"github.com/Glitch-guy0/authService/modules/core/config"
 )
 
 // BenchmarkConfigLoad benchmarks configuration loading
