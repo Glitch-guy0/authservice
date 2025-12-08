@@ -118,3 +118,59 @@ healthService.RegisterChecker("database", &DatabaseHealthChecker{db: appCtx.DB})
 - Implement circuit breakers for critical dependencies
 - Add metrics and logging to health endpoints
 - Coordinate config module relocation under `modules/core` per spec follow-up.
+
+## 9. Complete Controller Example
+
+Here's a complete example of adding a new module following the controller pattern:
+
+```go
+// modules/core/example/controller.go
+package example
+
+import (
+    "net/http"
+    "github.com/gin-gonic/gin"
+    "github.com/Glitch-guy0/authService/modules/core"
+)
+
+type Controller struct {
+    appCtx *core.AppContext
+}
+
+func NewController(appCtx *core.AppContext) *Controller {
+    return &Controller{appCtx: appCtx}
+}
+
+func (c *Controller) RegisterRoutes(router *gin.RouterGroup) {
+    router.GET("", c.ExampleHandler)
+    router.POST("/validate", c.ValidateHandler)
+}
+
+func (c *Controller) ExampleHandler(ctx *gin.Context) {
+    ctx.JSON(http.StatusOK, gin.H{
+        "message": "Example module working",
+        "version": c.appCtx.Version,
+    })
+}
+
+func (c *Controller) ValidateHandler(ctx *gin.Context) {
+    // Implementation here
+    ctx.JSON(http.StatusOK, gin.H{"status": "validated"})
+}
+```
+
+## 10. Integration with Server
+
+In `modules/server/server.go`, register your controller:
+
+```go
+// Import your controller
+import "github.com/Glitch-guy0/authService/modules/core/example"
+
+// In SetupRoutes function:
+exampleController := example.NewController(appCtx)
+exampleRoutes := v1.Group("/example")
+exampleController.RegisterRoutes(exampleRoutes)
+```
+
+This pattern ensures consistency across all modules and maintains proper dependency injection.

@@ -157,18 +157,37 @@ make lint
 ## Project Structure
 
 ```
+## Project Structure
+
+```
 .
 ├── cmd/              # Main application entry points
+│   └── app/main.go   # Service entrypoint
 ├── configs/          # Configuration files
-├── internal/         # Private application code
-│   ├── api/          # HTTP handlers and middleware
-│   ├── config/       # Configuration loading
-│   ├── logger/       # Logging implementation
-│   └── modules/      # Feature modules
+│   └── config.yaml   # Application configuration
+├── modules/          # Feature modules
+│   ├── api/          # API layer modules
+│   ├── core/         # Core modules (health, config, logger)
+│   ├── server/       # Server setup and middleware
+│   └── version/      # Version information
 ├── pkg/              # Reusable packages
-└── test/             # Test utilities and fixtures
+│   └── errors/       # Error handling utilities
+├── test/             # Test utilities and fixtures
+│   ├── benchmark/    # Performance tests
+│   ├── helpers/      # Test helpers
+│   └── integration/  # Integration tests
+└── specs/            # Feature specifications
 ```
-
 ## License
 
 [MIT](LICENSE)
+## Updated Module Structure
+
+The project has been restructured to follow a modular architecture:
+
+- **modules/api/**: API layer modules and handlers
+- **modules/core/**: Core shared modules (health, config, logger)
+- **modules/server/**: Server setup, routing, and middleware
+- **modules/version/**: Version management and provider
+
+This structure aligns with our controller pattern where each module exposes its routes through a controller interface.
