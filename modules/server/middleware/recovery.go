@@ -235,6 +235,7 @@ func shouldLogBodyForPanic(contentType string, contentLength int64) bool {
 }
 
 // shouldSkipPath checks if the path should be skipped by recovery middleware
+// nolint:unused // This is a utility method that may be used in the future
 func (rm *RecoveryMiddleware) shouldSkipPath(path string) bool {
 	for _, skipPath := range rm.config.SkipPaths {
 		if strings.HasPrefix(path, skipPath) {

@@ -51,9 +51,9 @@
 
 ## Phase 6: Validation & Testing
 
-- [ ] T021 [US1] Run health endpoints manually: `/health`, `/health/live`, `/health/ready`
-- [ ] T022 [US1] Execute full test suite: `go test ./...`
-- [ ] T023 [US1] Run linting: `golangci-lint run`
+- [x] T021 [US1] Run health endpoints manually: `/health`, `/health/live`, `/health/ready`
+- [x] T022 [US1] Execute full test suite: `go test ./...`
+- [x] T023 [US1] Run linting: `golangci-lint run`
 
 ## Phase 7: Documentation Updates
 

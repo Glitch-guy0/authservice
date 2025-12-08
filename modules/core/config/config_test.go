@@ -37,7 +37,7 @@ log:
   level: debug
   format: json
 `
-				err = os.WriteFile(filepath.Join(tempDir, "config.yaml"), []byte(configContent), 0644)
+				err = os.WriteFile(filepath.Join(tempDir, "config.yaml"), []byte(configContent), 0600)
 				require.NoError(t, err)
 
 				return tempDir, func() { os.RemoveAll(tempDir) }
@@ -52,7 +52,7 @@ log:
 
 				// Invalid YAML
 				configContent := `invalid: yaml: file`
-				err = os.WriteFile(filepath.Join(tempDir, "config.yaml"), []byte(configContent), 0644)
+				err = os.WriteFile(filepath.Join(tempDir, "config.yaml"), []byte(configContent), 0600)
 				require.NoError(t, err)
 
 				return tempDir, func() { os.RemoveAll(tempDir) }
@@ -138,7 +138,7 @@ SERVER_PORT=3000
 LOG_LEVEL=debug
 DB_DSN=postgres://user:pass@localhost:5432/testdb
 `
-				err = os.WriteFile(filepath.Join(tempDir, ".env"), []byte(envContent), 0644)
+				err = os.WriteFile(filepath.Join(tempDir, ".env"), []byte(envContent), 0600)
 				require.NoError(t, err)
 
 				return tempDir, func() { os.RemoveAll(tempDir) }
@@ -291,7 +291,7 @@ server:
     idle: 60
   debug: true
 `
-	err = os.WriteFile(configFile, []byte(initialConfig), 0644)
+	err = os.WriteFile(configFile, []byte(initialConfig), 0600)
 	require.NoError(t, err)
 
 	// Initialize config
@@ -313,7 +313,7 @@ server:
     idle: 60
   debug: false
 `
-	err = os.WriteFile(configFile, []byte(updatedConfig), 0644)
+	err = os.WriteFile(configFile, []byte(updatedConfig), 0600)
 	require.NoError(t, err)
 
 	// Force config reload

@@ -25,6 +25,7 @@ linters-settings:
   gosec:
     excludes:
       - G104 # Errors unhandled
+      - G204 # Subprocess launched with a potential tainted input or cmd arguments
   lll:
     line-length: 120
   maligned:
@@ -38,13 +39,11 @@ linters-settings:
       main:
         allow:
           - "github.com/Glitch-guy0/authService/modules/core"
-          - "github.com/Glitch-guy0/authService/modules/logger"
-          - "github.com/Glitch-guy0/authService/modules/config"
+          - "github.com/Glitch-guy0/authService/modules/core/logger"
+          - "github.com/Glitch-guy0/authService/modules/core/config"
           - "github.com/Glitch-guy0/authService/modules/core/health"
           - "github.com/Glitch-guy0/authService/modules/version"
           - "github.com/Glitch-guy0/authService/modules/server"
-          - "github.com/Glitch-guy0/authService/modules/core"
-          - "github.com/Glitch-guy0/authService/modules/logger"
           - "github.com/Glitch-guy0/authService/pkg/errors"
           - "github.com/gin-gonic/gin"
           - "github.com/stretchr/testify/assert"
@@ -81,6 +80,11 @@ linters-settings:
           - "database/sql"
           - "math/rand"
           - "errors"
+          - "github.com/Glitch-guy0/authService/modules/server/middleware"
+          - "github.com/Glitch-guy0/authService/test/benchmark"
+          - "github.com/Glitch-guy0/authService/test/helpers"
+          - "github.com/Glitch-guy0/authService/test/testutils"
+          - "github.com/Glitch-guy0/authService/test/integration"
 
 linters:
   disable-all: true

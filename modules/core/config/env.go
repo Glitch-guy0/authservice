@@ -30,7 +30,9 @@ func LoadEnv() error {
 	setDefaults()
 
 	// Bind environment variables
-	bindEnvs()
+	if err := bindEnvVars(); err != nil {
+		return fmt.Errorf("error binding environment variables: %w", err)
+	}
 
 	// Set the global Config variable
 	Config = viper.GetViper()
@@ -64,31 +66,52 @@ func setDefaults() {
 	viper.SetDefault("database.log_queries", false)
 }
 
-// bindEnvs binds environment variables to configuration keys
-func bindEnvs() {
+// bindEnvVars binds environment variables to configuration keys
+func bindEnvVars() error {
+	// Collect any errors that occur during binding
+	var bindErrors []error
+
+	// Helper function to bind env var and collect errors
+	bind := func(key, envVar string) {
+		if err := viper.BindEnv(key, envVar); err != nil {
+			bindErrors = append(bindErrors, fmt.Errorf("failed to bind %s to %s: %w", envVar, key, err))
+		}
+	}
+
 	// Server
-	_ = viper.BindEnv("env", "APP_ENV")
-	_ = viper.BindEnv("server.port", "SERVER_PORT")
-	_ = viper.BindEnv("server.timeout.read", "SERVER_READ_TIMEOUT")
-	_ = viper.BindEnv("server.timeout.write", "SERVER_WRITE_TIMEOUT")
-	_ = viper.BindEnv("server.timeout.idle", "SERVER_IDLE_TIMEOUT")
-	_ = viper.BindEnv("server.debug", "SERVER_DEBUG")
+	bind("env", "APP_ENV")
+	bind("server.port", "SERVER_PORT")
+	bind("server.timeout.read", "SERVER_READ_TIMEOUT")
+	bind("server.timeout.write", "SERVER_WRITE_TIMEOUT")
+	bind("server.timeout.idle", "SERVER_IDLE_TIMEOUT")
+	bind("server.debug", "SERVER_DEBUG")
 
 	// Logging
-	_ = viper.BindEnv("log.level", "LOG_LEVEL")
-	_ = viper.BindEnv("log.format", "LOG_FORMAT")
-	_ = viper.BindEnv("log.file_logging.enabled", "LOG_FILE_ENABLED")
-	_ = viper.BindEnv("log.file_logging.filename", "LOG_FILENAME")
-	_ = viper.BindEnv("log.file_logging.max_size", "LOG_MAX_SIZE")
-	_ = viper.BindEnv("log.file_logging.max_age", "LOG_MAX_AGE")
+	bind("log.level", "LOG_LEVEL")
+	bind("log.format", "LOG_FORMAT")
+	bind("log.file_logging.enabled", "LOG_FILE_ENABLED")
+	bind("log.file_logging.filename", "LOG_FILENAME")
+	bind("log.file_logging.max_size", "LOG_MAX_SIZE")
+	bind("log.file_logging.max_age", "LOG_MAX_AGE")
 
 	// Database
-	_ = viper.BindEnv("database.driver", "DB_DRIVER")
-	_ = viper.BindEnv("database.dsn", "DB_DSN")
-	_ = viper.BindEnv("database.max_open_conns", "DB_MAX_OPEN_CONNS")
-	_ = viper.BindEnv("database.max_idle_conns", "DB_MAX_IDLE_CONNS")
-	_ = viper.BindEnv("database.conn_max_lifetime", "DB_CONN_MAX_LIFETIME")
-	_ = viper.BindEnv("database.log_queries", "DB_LOG_QUERIES")
+	bind("database.driver", "DB_DRIVER")
+	bind("database.dsn", "DB_DSN")
+	bind("database.max_open_conns", "DB_MAX_OPEN_CONNS")
+	bind("database.max_idle_conns", "DB_MAX_IDLE_CONNS")
+	bind("database.conn_max_lifetime", "DB_CONN_MAX_LIFETIME")
+	bind("database.log_queries", "DB_LOG_QUERIES")
+
+	// Return a combined error if any bindings failed
+	if len(bindErrors) > 0 {
+		errMsgs := make([]string, len(bindErrors))
+		for i, err := range bindErrors {
+			errMsgs[i] = err.Error()
+		}
+		return fmt.Errorf("failed to bind environment variables: %s", strings.Join(errMsgs, "; "))
+	}
+
+	return nil
 }
 
 // GetEnv returns the current environment

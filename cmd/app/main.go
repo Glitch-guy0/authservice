@@ -40,10 +40,14 @@ func main() {
 		Date:    date,
 	}
 
-	// Start the application
-	if err := run(ctx, versionInfo); err != nil {
+	// Start the application and handle errors
+	err := run(ctx, versionInfo)
+	if err != nil {
 		os.Stderr.WriteString("error: " + err.Error() + "\n")
-		stop() // Call stop before exiting
+		// Cancel the context to trigger cleanup
+		stop()
+		// Give a small amount of time for cleanup to complete
+		time.Sleep(100 * time.Millisecond)
 		os.Exit(1)
 	}
 }

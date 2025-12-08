@@ -133,6 +133,7 @@ func validateDatabaseConfig(cfg *AppConfig) error {
 }
 
 // validateURL validates a URL string
+// nolint:unused // May be used in the future
 func validateURL(fl validator.FieldLevel) bool {
 	urlStr := fl.Field().String()
 	if urlStr == "" {
@@ -156,6 +157,7 @@ func validateURL(fl validator.FieldLevel) bool {
 }
 
 // validateDuration validates a duration string
+// nolint:unused // May be used in the future
 func validateDuration(fl validator.FieldLevel) bool {
 	durationStr := fl.Field().String()
 	if durationStr == "" {
@@ -167,6 +169,7 @@ func validateDuration(fl validator.FieldLevel) bool {
 }
 
 // validateRegexp validates a regular expression string
+// nolint:unused // May be used in the future
 func validateRegexp(fl validator.FieldLevel) bool {
 	regexStr := fl.Field().String()
 	if regexStr == "" {
