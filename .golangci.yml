@@ -40,7 +40,7 @@ linters-settings:
           - "github.com/Glitch-guy0/authService/modules/core"
           - "github.com/Glitch-guy0/authService/modules/logger"
           - "github.com/Glitch-guy0/authService/modules/config"
-          - "github.com/Glitch-guy0/authService/modules/api/health"
+          - "github.com/Glitch-guy0/authService/modules/core/health"
           - "github.com/Glitch-guy0/authService/modules/version"
           - "github.com/Glitch-guy0/authService/modules/server"
           - "github.com/Glitch-guy0/authService/modules/core"

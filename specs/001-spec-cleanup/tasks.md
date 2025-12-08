@@ -5,17 +5,17 @@
 
 ## Phase 1: Discovery & Migration Safeguards
 
-- [ ] T001 [US1] Search codebase for `modules/api/health` imports and document all callers
-- [ ] T002 [US1] Search codebase for `core/health` imports and document all callers
-- [ ] T003 [US1] Verify no external packages reference `modules/api/health` via grep
-- [ ] T004 [US1] Run `go test ./modules/api/health/...` to establish baseline coverage
+- [X] T001 [US1] Search codebase for `modules/api/health` imports and document all callers
+- [X] T002 [US1] Search codebase for `core/health` imports and document all callers
+- [X] T003 [US1] Verify no external packages reference `modules/api/health` via grep
+- [X] T004 [US1] Run `go test ./modules/api/health/...` to establish baseline coverage
 
 ## Phase 2: Health Module Migration to Core
 
-- [ ] T005 [US1] Move `modules/api/health/` to `modules/core/health/` with all subdirectories
-- [ ] T006 [US1] Update all import statements referencing `modules/api/health` to `modules/core/health`
-- [ ] T007 [US1] Delete empty `modules/api/health/` directory after migration
-- [ ] T008 [US1] Verify `go build ./...` succeeds after health module migration
+- [X] T005 [US1] Move `modules/api/health/` to `modules/core/health/` with all subdirectories
+- [X] T006 [US1] Update all import statements referencing `modules/api/health` to `modules/core/health`
+- [X] T007 [US1] Delete empty `modules/api/health/` directory after migration
+- [X] T008 [US1] Verify `go build ./...` succeeds after health module migration
 
 ## Phase 3: Route Refactoring to Controller Pattern
 

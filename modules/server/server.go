@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Glitch-guy0/authService/modules/api/health"
 	"github.com/Glitch-guy0/authService/modules/core"
+	"github.com/Glitch-guy0/authService/modules/core/health"
 	"github.com/Glitch-guy0/authService/modules/logger"
 	"github.com/gin-gonic/gin"
 )
